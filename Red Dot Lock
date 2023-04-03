@@ -1,108 +1,12 @@
--- Oplicine setts
-local CC = game:GetService"Workspace".CurrentCamera
-    local Plr
-    local enabled = falseWD
-    local accomidationfactor = 0.13880
-    local mouse = game.Players.LocalPlayer:GetMouse()
-    local placemarker = Instance.new("Part", game.Workspace)
+--[[
+ .____                  ________ ___.    _____                           __                
+ |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
+ |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
+ |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
+ |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
+         \/          \/         \/    \/                \/     \/     \/                   
+          \_Welcome to LuaObfuscator.com   (Alpha 0.2.5) ~  Much Love, Ferib 
 
-    function makemarker(Parent, Adornee, Color, Size, Size2)
-        local e = Instance.new("BillboardGui", Parent)
-        e.Name = "PP"
-        e.Adornee = Adornee
-        e.Size = UDim2.new(Size, Size2, Size, Size2)
-        e.AlwaysOnTop = true
-        local a = Instance.new("Frame", e)
-        a.Size = UDim2.new(1, 0, 1, 0)
-        a.BackgroundTransparency = 0
-        a.BackgroundColor3 = Color
-        local g = Instance.new("UICorner", a)
-        g.CornerRadius = UDim.new(50, 50)
-        return(e)
-    end
+]]--
 
-    
-    local data = game.Players:GetPlayers()
-    function noob(player)
-        local character
-        repeat wait() until player.Character
-        local handler = makemarker(guimain, player.Character:WaitForChild("HumanoidRootPart"), Color3.fromRGB(107, 184, 255), 0.3, 3)
-        handler.Name = player.Name
-        player.CharacterAdded:connect(function(Char) handler.Adornee = Char:WaitForChild("HumanoidRootPart") end)
-
-
-        spawn(function()
-            while wait() do
-                if player.Character then
-                    TextLabel.Text = player.Name..tostring(player:WaitForChild("leaderstats").Wanted.Value).." | "..tostring(math.floor(player.Character:WaitForChild("Humanoid").Health))
-                end
-            end
-        end)
-    end
-
-    for i = 1, #data do
-        if data[i] ~= game.Players.LocalPlayer then
-            noob(data[i])
-        end
-    end
-
-    game.Players.PlayerAdded:connect(function(Player)
-        noob(Player)
-    end)
-
-    spawn(function()
-        placemarker.Anchored = true
-        placemarker.CanCollide = false
-        placemarker.Size = Vector3.new(8, 8, 8)
-        placemarker.Transparency = 0.75
-        makemarker(placemarker, placemarker, Color3.fromRGB(250, 17, 0), 0.40, 0)
-    end)    
-
-mouse.KeyDown:Connect(function(k)
-    if k ~= "c" then return end
-    if enabled then
-        enabled = false
-        guimain[Plr.Name].Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    else
-        enabled = true 
-        Plr = getClosestPlayerToCursor()
-        guimain[Plr.Name].Frame.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-    end    
-end)
-
-    function getClosestPlayerToCursor()
-        local closestPlayer
-        local shortestDistance = math.huge
-
-        for i, v in pairs(game.Players:GetPlayers()) do
-            if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Humanoid") and v.Character.Humanoid.Health ~= 0 and v.Character:FindFirstChild("HumanoidRootPart") then
-                local pos = CC:WorldToViewportPoint(v.Character.PrimaryPart.Position)
-                local magnitude = (Vector2.new(pos.X, pos.Y) - Vector2.new(mouse.X, mouse.Y)).magnitude
-                if magnitude < shortestDistance then
-                    closestPlayer = v
-                    shortestDistance = magnitude
-                end
-            end
-        end
-        return closestPlayer
-    end
-
-    game:GetService"RunService".Stepped:connect(function()
-        if enabled and Plr.Character and Plr.Character:FindFirstChild("HumanoidRootPart") then
-            placemarker.CFrame = CFrame.new(Plr.Character.HumanoidRootPart.Position+(Plr.Character.HumanoidRootPart.Velocity*accomidationfactor))
-        else
-            placemarker.CFrame = CFrame.new(0, 9999, 0)
-        end
-    end)
-
-    local mt = getrawmetatable(game)
-    local old = mt.__namecall
-    setreadonly(mt, false)
-    mt.__namecall = newcclosure(function(...)
-        local args = {...}
-        if enabled and getnamecallmethod() == "FireServer" and args[2] == "UpdateMousePos" then
-            args[3] = Plr.Character.HumanoidRootPart.Position+(Plr.Character.HumanoidRootPart.Velocity*accomidationfactor)
-            return old(unpack(args))
-        end
-        return old(...)
-    end)
+local v0=game:GetService("Workspace").CurrentCamera;local v1;local v2=falseWD;local v3=0.1388;local v4=game.Players.LocalPlayer:GetMouse();local v5=Instance.new("Part",game.Workspace);makemarker=function(v6,v7,v8,v9,v10)local v18=Instance.new("BillboardGui",v6);v18.Name="PP";v18.Adornee=v7;v18.Size=UDim2.new(v9,v10,v9,v10);v18.AlwaysOnTop=true;local v23=Instance.new("Frame",v18);v23.Size=UDim2.new(1,0,1,0);v23.BackgroundTransparency=0;v23.BackgroundColor3=v8;local v27=Instance.new("UICorner",v23);v27.CornerRadius=UDim.new(50,50);return v18;end;local v11=game.Players:GetPlayers();noob=function(v12)local v29;repeat wait();until v12.Character local v30=makemarker(guimain,v12.Character:WaitForChild("HumanoidRootPart"),Color3.fromRGB(107,184,255),0.3,3);v30.Name=v12.Name;v12.CharacterAdded:connect(function(v33)v30.Adornee=v33:WaitForChild("HumanoidRootPart");end);spawn(function()while wait() do if v12.Character then TextLabel.Text=v12.Name   .. tostring(v12:WaitForChild("leaderstats").Wanted.Value)   .. " | "   .. tostring(math.floor(v12.Character:WaitForChild("Humanoid").Health)) ;end end end);end;for v34=1, #v11 do if (v11[v34]~=game.Players.LocalPlayer) then noob(v11[v34]);end end game.Players.PlayerAdded:connect(function(v13)noob(v13);end);spawn(function()v5.Anchored=true;v5.CanCollide=false;v5.Size=Vector3.new(8,8,8);v5.Transparency=0.75;makemarker(v5,v5,Color3.fromRGB(250,17,0),0.4,0);end);v4.KeyDown:Connect(function(v14)if (v14~="c") then return;end if v2 then v2=false;guimain[v1.Name].Frame.BackgroundColor3=Color3.fromRGB(255,255,255);else v2=true;v1=getClosestPlayerToCursor();guimain[v1.Name].Frame.BackgroundColor3=Color3.fromRGB(255,0,0);end end);getClosestPlayerToCursor=function()local v39;local v40=math.huge;for v43,v44 in pairs(game.Players:GetPlayers()) do if ((v44~=game.Players.LocalPlayer) and v44.Character and v44.Character:FindFirstChild("Humanoid") and (v44.Character.Humanoid.Health~=0) and v44.Character:FindFirstChild("HumanoidRootPart")) then local v50=v0:WorldToViewportPoint(v44.Character.PrimaryPart.Position);local v51=(Vector2.new(v50.X,v50.Y) -Vector2.new(v4.X,v4.Y)).magnitude;if (v51<v40) then v39=v44;v40=v51;end end end return v39;end;game:GetService("RunService").Stepped:connect(function()if (v2 and v1.Character and v1.Character:FindFirstChild("HumanoidRootPart")) then v5.CFrame=CFrame.new(v1.Character.HumanoidRootPart.Position + (v1.Character.HumanoidRootPart.Velocity * v3) );else v5.CFrame=CFrame.new(0,9999,0);end end);local v15=getrawmetatable(game);local v16=v15.__namecall;setreadonly(v15,false);v15.__namecall=newcclosure(function(...)local v41={...};if (v2 and (getnamecallmethod()=="FireServer") and (v41[2]=="UpdateMousePos")) then v41[3]=v1.Character.HumanoidRootPart.Position + (v1.Character.HumanoidRootPart.Velocity * v3) ;return v16(unpack(v41));end return v16(...);end);
